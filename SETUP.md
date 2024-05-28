@@ -79,7 +79,7 @@ SPW4 - Exercise 3 Setup Instructions
 
 1. Create and run a container for hosting the servlet using Tomcat:
    ```shell
-   docker run -d --name github-runner --network runner-net -p 8081:8080 tomcat:11.0.0-jdk21
+   docker run -d --name github-runner --network runner-net -p 8081:8080 tomcat:9.0-jdk21
    ```
 
 2. Open a shell in the container:
