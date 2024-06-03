@@ -32,7 +32,7 @@ SPW4 - Exercise 3 Setup Instructions
    ```
 
 4. Register runner with ```docker``` executor:
-   * default image for docker executor: ```maven:3.9.6-amazoncorretto-21```
+   * default image for docker executor: ```maven:3.9.7-eclipse-temurin-21```
    ```shell
    /root/gitlab-runner register
    ```
