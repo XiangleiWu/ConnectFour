@@ -93,12 +93,12 @@ class ConnectFourImplTest {
         sut.drop(4);
 
         String expected = "Player: YELLOW\n" +
+                "| R  Y  R  Y  R  .  . |\n" +
                 "| .  .  .  .  .  .  . |\n" +
                 "| .  .  .  .  .  .  . |\n" +
                 "| .  .  .  .  .  .  . |\n" +
                 "| .  .  .  .  .  .  . |\n" +
-                "| .  .  .  .  .  .  . |\n" +
-                "| R  Y  R  Y  R  .  . |\n";
+                "| .  .  .  .  .  .  . |\n";
         assertEquals(expected, sut.toString());
     }
 
