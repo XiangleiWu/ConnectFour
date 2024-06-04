@@ -4,10 +4,17 @@ stages:
 
 image: maven:3.9.7-eclipse-temurin-21
 
+variables:
+  maven_packages_cache: ".m2/repository"
+  MAVEN_OPTS: "-Dmaven.repo.local=./$maven_packages_cache"
+
 build:
   stage: build
   tags:
     - docker
+  cache:
+    paths:
+      - $maven_packages_cache
   script:
     - mvn compile
 
@@ -15,5 +22,8 @@ test:
   stage: test
   tags:
     - docker
+  cache:
+    paths:
+      - $maven_packages_cache
   script:
     - mvn test
