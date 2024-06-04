@@ -1,0 +1,19 @@
+stages:
+  - build
+  - test
+
+image: maven:3.9.7-eclipse-temurin-21
+
+build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - mvn compile
+
+test:
+  stage: test
+  tags:
+    - docker
+  script:
+    - mvn test
