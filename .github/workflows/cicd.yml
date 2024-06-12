@@ -124,13 +124,13 @@ jobs:
           path: target
 
       - name: Remove existing Docker container
-        run: docker rm --force connectfour || true
+        run: docker rm --force ConnectFour || true
 
       - name: Remove existing Docker image
-        run: docker image rm --force connectfour || true
+        run: docker image rm --force ConnectFour || true
 
       - name: Build Docker image
-        run: docker build . -t connectfour
+        run: docker build . -t ConnectFour
 
       - name: Run Docker container
-        run: docker run -d --rm --name connectfour -p 8080:8080 connectfour
+        run: docker run -d --rm --name ConnectFour -p 8080:8080 ConnectFour
