@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-aritfact
+          name: build-artifact
           path: staging
           retention-days: 7
           
@@ -68,7 +68,7 @@ jobs:
         - name: Download build artifacts
           uses: actions/download-artifact@v4
           with:
-            name: build-aritfact
+            name: build-artifact
             path: staging
   
         - name: Run tests with Maven
@@ -76,7 +76,7 @@ jobs:
 
   package:
     runs-on: self-hosted  
-    needs: test
+    needs: build
 
     steps:
       - name: Check out repository
@@ -96,7 +96,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Download build artifacts
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
