@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Build-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          name: build-aritfact
           path: staging
           retention-days: 7
           
@@ -68,7 +68,7 @@ jobs:
         - name: Download build artifacts
           uses: actions/download-artifact@v4
           with:
-            name: Build-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+            name: build-aritfact
             path: staging
   
         - name: Run tests with Maven
