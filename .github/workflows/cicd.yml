@@ -76,7 +76,7 @@ jobs:
 
   package:
     runs-on: self-hosted  
-    needs: build
+    needs: test
 
     steps:
       - name: Check out repository
