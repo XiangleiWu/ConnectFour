@@ -42,3 +42,34 @@ jobs:
           name: Build-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
           path: staging
           retention-days: 7
+          
+  test:
+      runs-on: self-hosted 
+      needs: build
+  
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v4
+  
+        - name: Set up Java
+          uses: actions/setup-java@v4
+          with:
+            java-version: '21'
+            distribution: 'temurin'
+  
+        - name: Restore Maven cache
+          uses: actions/cache@v3
+          with:
+            path: .m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+            restore-keys: |
+              ${{ runner.os }}-maven-
+  
+        - name: Download build artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: Build-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+            path: staging
+  
+        - name: Run tests with Maven
+          run: mvn test -Dmaven.repo.local=.m2/repository
