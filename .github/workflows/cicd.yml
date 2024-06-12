@@ -10,4 +10,24 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Verify and build with Maven
+        run: mvn compile
+
+      - name: Create staging directory and copy JAR files
+        run: mkdir staging && cp target/*.jar staging
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Package
+          path: staging
+          retention-days: 7
