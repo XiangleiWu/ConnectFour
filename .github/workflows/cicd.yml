@@ -115,29 +115,37 @@ jobs:
   deploy:
     runs-on: self-hosted  
     needs: package
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Remove existing Docker container
+        run: |
+          docker rm --force connectfour || true
 
-    - name: Remove existing Docker container
-      run: |
-        docker rm --force connectfour || true
+      - name: Remove existing Docker image
+        run: |
+          docker image rm --force connectfour || true
 
-    - name: Remove existing Docker image
-      run: |
-        docker image rm --force connectfour || true
+      - name: Build Docker image
+        run: |
+          docker build . -t connectfour
 
-    - name: Build Docker image
-      run: |
-        docker build . -t connectfour
+      - name: Run Docker container
+        run: |
+          docker run -d --rm --name connectfour -p 8080:8080 connectfour
 
-    - name: Run Docker container
-      run: |
-        docker run -d --rm --name connectfour -p 8080:8080 connectfour
+  stop_test:
+    runs-on: self-hosted
+    steps:
+      - name: Remove existing Docker container
+        run: |
+          docker rm --force connectfour || true
+
+      - name: Remove existing Docker image
+        run: |
+          docker image rm --force connectfour || true
